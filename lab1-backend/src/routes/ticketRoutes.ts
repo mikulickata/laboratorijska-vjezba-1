@@ -13,6 +13,6 @@ router.get('/count', getTicketCount);
 router.post('/generate', asyncErrorHandler(checkOAuthToken), createTicket);
 
 // Ruta za dohvaćanje detalja ulaznice, koristi OIDC autorizaciju
-router.get('/:id', /*requiresAuth(),*/ getTicket); // Sada samo koristi requiresAuth()
+router.get('/:id', requiresAuth(), getTicket); // Sada samo koristi requiresAuth()
 
 export default router;

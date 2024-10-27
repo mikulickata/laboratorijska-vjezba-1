@@ -5,6 +5,7 @@ import { generateQRCode } from './qrCodeService';
 export const generateTicket = async (vatin: string, firstName: string, lastName: string, token: string | undefined) => {
   console.log("generateTicket");
   const id = uuidv4();
+  console.log(process.env.BASE_URL)
   const ticketUrl = `${process.env.BASE_URL}/tickets/${id}`;  // Generate the ticket URL dynamically
 
   const result = await pool.query('SELECT COUNT(*) FROM tickets WHERE vatin = $1', [vatin]);

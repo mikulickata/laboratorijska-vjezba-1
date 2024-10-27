@@ -35,12 +35,12 @@ export const getTicketCount = async (req: Request, res: Response) => {
 // Prikaz detalja ulaznice
 export const getTicket = async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log("id: ", id)
+  const user = req.oidc.user;  // Dohvaća podatke o prijavljenom korisniku
+  console.log("Logged-in user: ", user);  // Prikazuje podatke korisnika
+
   try {
     const ticket = await getTicketDetails(id);
-    //const user = req.oidc.user;
-    console.log("sve: ", ticket)
-    res.status(200).json({ ticket});
+    res.status(200).json({ ticket, user });
   } catch (error: any) {
     res.status(error.statusCode || 404).json({ message: error.message });
   }
