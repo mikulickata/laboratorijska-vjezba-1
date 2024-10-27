@@ -1,25 +1,24 @@
+// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Update to Routes
-import { Auth0Provider } from "@auth0/auth0-react";
-import { auth0Config } from "./auth0-config";
-import HomePage from './pages/HomePage';
-import GenerateTicketPage from './pages/GenerateTicketPage';
-import TicketDetailsPage from './pages/TicketDetailsPage';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import TicketForm from './pages/TicketForm';
+import TicketDetails from './pages/TicketDetails';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const App: React.FC = () => (
-  <Auth0Provider
-    domain={auth0Config.domain}
-    clientId={auth0Config.clientId}
-    authorizationParams={auth0Config.authorizationParams}
-  >
-    <Router>
-      <Routes> {/* Update to Routes */}
-        <Route path="/" element={<HomePage />} /> {/* Use element instead of component */}
-        <Route path="/generate-ticket" element={<GenerateTicketPage />} />
-        <Route path="/tickets/:id" element={<TicketDetailsPage />} />
-      </Routes>
-    </Router>
-  </Auth0Provider>
-);
+const App: React.FC = () => {
+  const { isAuthenticated } = useAuth0();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/generate-ticket" element={<TicketForm />} />
+      <Route
+        path="/ticket/:id"
+        element={isAuthenticated ? <TicketDetails /> : <Navigate to="/" />}
+      />
+    </Routes>
+  );
+};
 
 export default App;
