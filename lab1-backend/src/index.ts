@@ -1,25 +1,40 @@
 import express from 'express';
-import pool from './database'; // Uvoz pool-a iz database.ts
+import dotenv from 'dotenv';
+import cors from 'cors'; // Import CORS
+import ticketRoutes from './routes/ticketRoutes';
+import { getOAuthToken } from './services/authService';
+import { authConfig } from './config/authConfig';
+import { auth } from 'express-openid-connect';
+
+dotenv.config();
 
 const app = express();
-const port = 4000;
+const PORT = process.env.PORT || 3000;
 
-// Rute, middleware itd.
-app.get('/', (req, res) => {
-  res.send('Server is up and running!');
-});
+app.use(cors({
+  origin: 'http://localhost:3000', // Adjust this URL to match your frontend's URL
+}));
 
-// Definiraj neku rutu koja koristi bazu podataka
-app.get('/tickets', async (req, res) => {
+app.use(express.json());
+
+// Configuration for OIDC middleware
+app.use(auth(authConfig));
+
+// Start the application and get OAuth token
+/*
+const initApp = async () => {
   try {
-    const result = await pool.query('SELECT * FROM tickets'); // Upit prema bazi
-    res.json(result.rows);
-  } catch (err) {
-    console.error('Error executing query', err);
-    res.status(500).send('Error retrieving tickets');
+    await getOAuthToken(); // Get the token
+    console.log('OAuth token je uspješno dobiven');
+  } catch (error) {
+    console.error('Greška prilikom dobivanja OAuth tokena:', error);
   }
-});
+};
+*/
+// Main routes for tickets
+app.use('/tickets', ticketRoutes);
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server je pokrenut na portu ${PORT}`);
+  //initApp(); // Initialize the application
 });
