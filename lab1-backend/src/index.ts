@@ -12,7 +12,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'https://lab1-frontend.onrender.com', // Allow requests from the live frontend
+  origin: 'https://lab1-frontend.onrender.com', // Zamijenite s točnom domenom frontend aplikacije
+  methods: 'GET,POST', // Dozvolite samo potrebne metode
+  allowedHeaders: 'Content-Type,Authorization' // Dozvolite potrebne zaglavlje
 }));
 
 
@@ -21,17 +23,7 @@ app.use(express.json());
 // Configuration for OIDC middleware
 app.use(auth(authConfig));
 
-// Start the application and get OAuth token
-/*
-const initApp = async () => {
-  try {
-    await getOAuthToken(); // Get the token
-    console.log('OAuth token je uspješno dobiven');
-  } catch (error) {
-    console.error('Greška prilikom dobivanja OAuth tokena:', error);
-  }
-};
-*/
+
 // Main routes for tickets
 app.use('/tickets', ticketRoutes);
 
