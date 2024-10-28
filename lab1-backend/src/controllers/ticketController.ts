@@ -54,7 +54,12 @@ export const getTicket = async (req: Request, res: Response) => {
   try {
     const ticket = await getTicketDetails(id);
     res.status(200).json({
-      ticket,
+      ticket: {
+        vatin: ticket.vatin,
+        firstName: ticket.first_name,
+        lastName: ticket.last_name,
+        createdAt: ticket.created_at,
+      },
       userName
     });
   } catch (error: any) {
