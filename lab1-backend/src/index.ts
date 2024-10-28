@@ -14,7 +14,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: 'https://lab1-frontend.onrender.com', // Zamijenite s točnom domenom frontend aplikacije
   methods: 'GET,POST', // Dozvolite samo potrebne metode
-  allowedHeaders: 'Content-Type,Authorization' // Dozvolite potrebne zaglavlje
+  allowedHeaders: 'Content-Type,Authorization', // Dozvolite potrebne zaglavlje
+  credentials: true
 }));
 
 
