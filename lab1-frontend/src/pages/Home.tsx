@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     const fetchCount = async () => {
       try {
         const ticketCount = await fetchTicketCount(); // Call the API function
-        setCount(ticketCount);
+        setCount(ticketCount.count);
       } catch (error) {
         console.error('Error fetching ticket count:', error);
       }
