@@ -2,10 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import pool from '../database/database';
 import { generateQRCode } from './qrCodeService';
 
-export const generateTicket = async (vatin: string, firstName: string, lastName: string, token: string | undefined) => {
-  console.log("generateTicket");
+export const generateTicket = async (vatin: string, firstName: string, lastName: string) => {
+
   const id = uuidv4();
-  console.log(process.env.BASE_URL)
   const ticketUrl = `${process.env.BASE_URL}/tickets/${id}`;  // Generate the ticket URL dynamically
 
   const result = await pool.query('SELECT COUNT(*) FROM tickets WHERE vatin = $1', [vatin]);
@@ -18,8 +17,8 @@ export const generateTicket = async (vatin: string, firstName: string, lastName:
   const newTicket = await pool.query(query, values);
 
   const qrCodeUrl = await generateQRCode(ticketUrl); // Generate the QR code
-  console.log("ticket-url: ", ticketUrl);
-  return { ...newTicket.rows[0], ticketUrl, qrCodeUrl, token }; // Include QR code URL in the response
+
+  return { ticketUrl, qrCodeUrl}; // Include QR code URL in the response
 };
 
 export const getTicketDetails = async (id: string) => {

@@ -10,12 +10,8 @@ const pool = new Pool({
   },
 });
 
-pool.on('connect', () => {
-  console.log('Connected to the database');
-});
+pool.on('connect', () => {});
 
-pool.on('error', (err) => {
-  console.error('Database error', err);
-});
+pool.on('error', (err) => {});
 
 export default pool;

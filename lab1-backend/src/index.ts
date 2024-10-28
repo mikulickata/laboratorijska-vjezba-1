@@ -27,7 +27,4 @@ app.use(auth(authConfig));
 // Main routes for tickets
 app.use('/tickets', ticketRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server je na portu ${PORT}`);
-  //initApp(); // Initialize the application
-});
+app.listen(PORT, () => {});

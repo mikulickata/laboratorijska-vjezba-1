@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react'; // Ako planirate koristiti Auth0 za autentifikaciju
 import { generateTicket } from '../services/apiService';
 
 const GenerateTicketPage = () => {
@@ -11,14 +11,16 @@ const GenerateTicketPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      
+    
+    // Resetiranje greške prije slanja
+    setError('');
 
-      // Call the API with the token
+    try {
+      // Pozivanje API-ja za generiranje ulaznice
       const ticket = await generateTicket(vatin, firstName, lastName);
       setQrCode(ticket.qrCodeUrl);
-      setError('');
     } catch (error: any) {
+      // Postavljanje greške u stanju
       setError(error.response?.data?.message || 'Došlo je do pogreške prilikom generiranja ulaznice.');
       console.error('Error generating ticket:', error);
     }

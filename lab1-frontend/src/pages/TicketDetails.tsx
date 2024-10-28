@@ -12,9 +12,10 @@ interface Ticket {
 }
 
 const TicketDetails: React.FC = () => {
-  const { id } = useParams<{ id?: string }>(); // Make id optional
+  const { id } = useParams<{ id: string }>(); // Make id required for type safety
   const { user } = useAuth0();
   const [ticket, setTicket] = useState<Ticket | null>(null);
+  const [error, setError] = useState<string | null>(null); // Add error state
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -22,7 +23,8 @@ const TicketDetails: React.FC = () => {
         try {
           const ticketData = await getTicketDetails(id); // Call the API function
           setTicket(ticketData);
-        } catch (error) {
+        } catch (error: any) {
+          setError('Error fetching ticket details.'); // Set error message
           console.error('Error fetching ticket details:', error);
         }
       } else {
@@ -35,6 +37,7 @@ const TicketDetails: React.FC = () => {
   return (
     <div>
       <h2>Ticket Details</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
       {ticket ? (
         <div>
           <p>VATIN: {ticket.vatin}</p>

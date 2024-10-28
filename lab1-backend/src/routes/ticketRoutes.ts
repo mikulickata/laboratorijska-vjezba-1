@@ -10,9 +10,9 @@ const router = express.Router();
 router.get('/count', getTicketCount);
 
 // Ruta za generiranje ulaznice, koristi OAuth2 autorizaciju
-router.post('/generate', asyncErrorHandler(checkOAuthToken), createTicket);
+router.post('/generate', asyncErrorHandler(checkOAuthToken), asyncErrorHandler(createTicket));
 
 // Ruta za dohvaćanje detalja ulaznice, koristi OIDC autorizaciju
-router.get('/:id', requiresAuth(), getTicket); // Sada samo koristi requiresAuth()
+router.get('/:id', requiresAuth(), getTicket); 
 
 export default router;
