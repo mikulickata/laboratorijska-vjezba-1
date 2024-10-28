@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getTicketDetails } from '../services/apiService'; // Import the API function
+import './styles/TicketDetails.css'; // Add this line at the top of the file
 
 interface Ticket {
   vatin: string;

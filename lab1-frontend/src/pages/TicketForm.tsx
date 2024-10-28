@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react'; // Ako planirate koristiti Auth0 za autentifikaciju
 import { generateTicket } from '../services/apiService';
+import './styles/TicketForm.css'; // Add this line at the top of the file
 
 const GenerateTicketPage = () => {
   const [vatin, setVatin] = useState('');
