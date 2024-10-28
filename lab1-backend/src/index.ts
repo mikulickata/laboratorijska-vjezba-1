@@ -12,8 +12,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Adjust this URL to match your frontend's URL
+  origin: 'https://lab1-frontend.onrender.com', // Allow requests from the live frontend
 }));
+
 
 app.use(express.json());
 
