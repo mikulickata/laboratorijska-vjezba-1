@@ -1,5 +1,5 @@
 // src/pages/Home.tsx
-import '../styles/Home'; // Add this line at the top of the file
+import '../styles/Home.css'; // Add this line at the top of the file
 import React, { useEffect, useState } from 'react';
 import { fetchTicketCount } from '../services/apiService'; // Import the API function
 
