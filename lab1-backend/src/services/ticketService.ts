@@ -6,7 +6,7 @@ export const generateTicket = async (vatin: string, firstName: string, lastName:
 
   const id = uuidv4();
   const ticketUrl = `${process.env.BASE_URL}/tickets/${id}`;  // Generate the ticket URL dynamically
-
+  console.log(ticketUrl)
   const result = await pool.query('SELECT COUNT(*) FROM tickets WHERE vatin = $1', [vatin]);
   if (parseInt(result.rows[0].count) >= 3) {
      throw { statusCode: 400, message: 'Maksimalan broj ulaznica je već generiran za ovaj OIB' };
