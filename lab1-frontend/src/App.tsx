@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/generate-ticket" element={<TicketForm />} />
       <Route
-        path="/ticket/:id"
+        path="/tickets/:id"
         element={isAuthenticated ? <TicketDetails /> : <Navigate to="/" />}
       />
     </Routes>
